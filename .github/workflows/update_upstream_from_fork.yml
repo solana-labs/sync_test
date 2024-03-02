@@ -16,15 +16,16 @@ jobs:
     name: "Update Upstream From Fork"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - shell: bash
-        - name: Add remote for upstream
-          run: git add remote upstream https://github.com/solana-labs/sync_test.git
-        - name: "Cherry pick from willhickey/master to upstream/master"
-          run: |
-            git checkout upstream/master
-            git checkout -b temp_branch
-            git cherry-pick upstream/master..willhickey/master
-            git push upstream master 
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Add remote for upstream
+        run: git add remote upstream https://github.com/solana-labs/sync_test.git
+        shell: bash
+      - name: Cherry pick from willhickey/master to upstream/master
+        run: |
+          git checkout upstream/master
+          git checkout -b temp_branch
+          git cherry-pick upstream/master..willhickey/master
+          git push upstream master
+        shell: bash
 # TODO the push will fail because or branch protection rules.            
