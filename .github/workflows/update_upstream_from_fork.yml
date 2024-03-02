@@ -16,6 +16,11 @@ jobs:
     name: "Update Upstream From Fork"
     runs-on: ubuntu-latest
     steps:
+      - name: Echo ENV
+        run: |
+          echo $GH_TOKEN
+          echo $GH_REPO
+        shell: bash
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
