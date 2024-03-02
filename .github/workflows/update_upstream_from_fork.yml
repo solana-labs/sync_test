@@ -28,6 +28,8 @@ jobs:
         shell: bash
       - name: Cherry pick from origin/master to upstream/master
         run: |
+          git config --global user.email "will.hickey@anza.xyz"
+          git config --global user.name "GHA: Update Upstream From Fork"
           git fetch --all
           git checkout -b temp_branch remotes/upstream/master
           git cherry-pick remotes/upstream/master..origin/master
