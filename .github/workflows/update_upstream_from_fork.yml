@@ -9,6 +9,8 @@ on:
 
 env:
   GH_TOKEN: ${{ secrets.SYNC_TEST }}
+  GH_TOKEN2: ${{ secrets.SYNC_TEST2 }}
+  FOO: ${{ secrets.SYNC_TEST }}
   GH_REPO: ${{ github.repository }}
 
 jobs:
@@ -20,6 +22,8 @@ jobs:
         run: |
           echo $GH_TOKEN
           echo $GH_REPO
+          echo $GH_TOKEN2
+          echo $FOO
         shell: bash
       - name: Checkout repository
         uses: actions/checkout@v3
