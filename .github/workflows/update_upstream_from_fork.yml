@@ -23,9 +23,9 @@ jobs:
         shell: bash
       - name: Cherry pick from willhickey/master to upstream/master
         run: |
-          git checkout upstream/master
-          git checkout -b temp_branch
-          git cherry-pick upstream/master..willhickey/master
+          git fetch --all
+          git checkout -b temp_branch remotes/upstream/master
+          git cherry-pick remotes/upstream/master..willhickey/master
           git push upstream master
         shell: bash
 # TODO the push will fail because or branch protection rules.            
