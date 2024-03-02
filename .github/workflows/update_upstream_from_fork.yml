@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Add remote for upstream
-        run: git add remote upstream https://github.com/solana-labs/sync_test.git
+        run: git remote add upstream https://github.com/solana-labs/sync_test.git
         shell: bash
       - name: Cherry pick from willhickey/master to upstream/master
         run: |
