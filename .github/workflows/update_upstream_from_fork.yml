@@ -1,0 +1,30 @@
+name: Update Upstream From Fork
+
+on:
+  push:
+    branches:
+      - master
+      - v1.18
+      - v1.17
+
+env:
+  GH_TOKEN: ${{ secrets.SYNC_TEST }}
+  GH_REPO: ${{ github.repository }}
+
+jobs:
+  update-upstream-from-fork:
+    name: "Update Upstream From Fork"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - shell: bash
+        - name: Add remote for upstream
+          run: git add remote upstream https://github.com/solana-labs/sync_test.git
+        - name: "Cherry pick from willhickey/master to upstream/master"
+          run: |
+            git checkout upstream/master
+            git checkout -b temp_branch
+            git cherry-pick upstream/master..willhickey/master
+            git push upstream master 
+# TODO the push will fail because or branch protection rules.            
