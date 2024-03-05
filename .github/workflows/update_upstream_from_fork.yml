@@ -25,10 +25,8 @@ jobs:
           echo $GH_TOKEN2
           echo $FOO
           gh auth status
-          echo "git config: "
+          echo "git config -l: "
           git config -l
-          echo "Grepped and cut:"
-          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 |
         shell: bash
       - uses: actions/checkout@v4
       - name: Add remote for upstream
