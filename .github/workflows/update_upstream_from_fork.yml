@@ -24,6 +24,7 @@ jobs:
           echo $GH_REPO
           echo $GH_TOKEN2
           echo $FOO
+          gh auth status
         shell: bash
       - name: git config
         run: |
