@@ -8,9 +8,7 @@ on:
       - v1.17
 
 env:
-  GH_TOKEN: ${{ secrets.SYNC_TEST }}
-  GH_TOKEN2: ${{ secrets.SYNC_TEST2 }}
-  FOO: ${{ secrets.SYNC_TEST }}
+  GH_TOKEN: ${{ secrets.SYNC_TEST_ADMIN }}
   GH_REPO: ${{ github.repository }}
 
 jobs:
@@ -20,10 +18,7 @@ jobs:
     steps:
       - name: Echo ENV
         run: |
-          echo $GH_TOKEN
           echo $GH_REPO
-          echo $GH_TOKEN2
-          echo $FOO
           gh auth status
           echo "git config -l: "
           git config -l
