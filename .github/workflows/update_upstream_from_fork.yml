@@ -24,6 +24,8 @@ jobs:
           git config -l
         shell: bash
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SYNC_TEST_ADMIN }}
       - name: Add remote for upstream
         run: git remote add upstream https://github.com/solana-labs/sync_test.git
         shell: bash
