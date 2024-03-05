@@ -43,4 +43,4 @@ jobs:
           git cherry-pick remotes/upstream/master..origin/master
           git push upstream master
         shell: bash
-# TODO the push will fail because or branch protection rules.            
+
