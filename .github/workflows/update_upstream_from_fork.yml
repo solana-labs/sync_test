@@ -26,11 +26,6 @@ jobs:
           echo $FOO
           gh auth status
         shell: bash
-      - name: git config
-        run: |
-          git config --global credential.https://github.com.username willhickey
-          git config --global credential.https://github.com.password $GH_TOKEN
-        shell: bash
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
