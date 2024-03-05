@@ -39,8 +39,11 @@ jobs:
           git config --global user.email "will.hickey@anza.xyz"
           git config --global user.name "GHA: Update Upstream From Fork"
           git fetch --all
+          git show remotes/upstream/master
+          git show origin/master
           git checkout -b temp_branch remotes/upstream/master
           git cherry-pick remotes/upstream/master..origin/master
           git push upstream master
         shell: bash
 
+# TODO add a bunch of debugging prints about the state of commits so if cherry-pick fails we can figure it out.
