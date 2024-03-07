@@ -51,7 +51,17 @@ jobs:
         shell: bash
       - name: run some GHA script
         - uses: actions/github-script@v6
+<<<<<<< HEAD
           with: 
+=======
+          with:
+            script: |
+              const commits = ${{ toJSON(github.event.commits) }}
+              for (const commit of commits) {
+                console.log(commit);
+              }
+
+>>>>>>> 3788104 (Add GHA script)
 
 
 

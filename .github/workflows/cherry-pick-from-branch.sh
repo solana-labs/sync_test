@@ -17,6 +17,7 @@ BRANCH=$1
 BEFORE_SHA=$4
 LAST_SHA=$5
 
+DEST="upstream"
 BRANCH="master"
 SKIP_COMMIT_STRING="DO NOT SYNC"
 
@@ -29,18 +30,19 @@ git log --oneline remotes/upstream/master
 echo "-----------------------\ngit log --oneline origin/master"
 git log --oneline origin/master
 echo "-------------------------"
-# git branch -D temp_branch
-# git checkout -b temp_branch "remotes/$DEST/$BRANCH"
+git branch -D temp_branch
+git checkout -b temp_branch "remotes/$DEST/$BRANCH"
 
 for sha1 in $(git log --reverse --format=format:%H remotes/upstream/$BRANCH..origin/$BRANCH); do
     echo "SHA1: $sha1"
     commit_message=$(git log --format=%B $sha1~..$sha1)
     echo "$commit_message"
     if ! [[ $commit_message =~ $SKIP_COMMIT_STRING ]] ; then
-        echo "$commit_message does not contain $SKIP_COMMIT_STRING"
+        echo "$commit_message does not contain $SKIP_COMMIT_STRING. Cherry-picking..."
+        git cherry-pick $sha1
+    el
+        echo "$commit_message contains $SKIP_COMMIT_STRING. Skipping..."
     fi
-    # if not include magic word
-    # cherry pick commit
 done
 # git cherry-pick remotes/upstream/master..origin/master
 # git push upstream master
