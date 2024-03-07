@@ -44,11 +44,10 @@ jobs:
         shell: bash
       - name: Cherry pick from origin/master to upstream/master
         run: |
-          ./github/workflows/cherry-pick-from-branch.sh
+          .github/workflows/cherry-pick-from-branch.sh
         shell: bash
 
 # TODO add a bunch of debugging prints about the state of commits so if cherry-pick fails we can figure it out.
 # TODO Minimize the PAT permissions
 # TODO a way to skip a commit (CI migration, etc)
 # TODO all referencs to "master" need to be dynamic
-
