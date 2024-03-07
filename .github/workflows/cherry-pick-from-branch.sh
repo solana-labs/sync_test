@@ -12,10 +12,16 @@
 # TODO all referencs to "master" need to be dynamic
 
 
-DEST_REMOTE=$2
-DEST_BRANCH=$1
-BEFORE_SHA=$4
-LAST_SHA=$5
+DEST_REMOTE=$1
+DEST_BRANCH=$2
+BEFORE_SHA=$3
+LAST_SHA=$4
+
+echo "DEST_REMOTE: $DEST_REMOTE"
+echo "DEST_BRANCH: $DEST_BRANCH"
+echo "BEFORE_SHA: $BEFORE_SHA"
+echo "LAST_SHA: $LAST_SHA"
+
 
 DEST_REMOTE="upstream"
 DEST_BRANCH="master"
