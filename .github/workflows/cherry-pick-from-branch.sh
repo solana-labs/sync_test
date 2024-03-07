@@ -21,7 +21,7 @@ DEST="upstream"
 SRC="origin"
 BRANCH="master"
 BEFORE_SHA="4bca5fc"
-LAST_SHA="35ae3c7"
+LAST_SHA="be1fb6b"
 
 SKIP_COMMIT_STRING="DO NOT SYNC"
 
@@ -44,7 +44,7 @@ for sha1 in $(git log --reverse --format=format:%H $BEFORE_SHA..$LAST_SHA); do
     if ! [[ $commit_message =~ $SKIP_COMMIT_STRING ]] ; then
         echo "Commit message does not contain $SKIP_COMMIT_STRING. Cherry-picking..."
         git cherry-pick "$sha1"
-    el
+    else
         echo "Commit message contains $SKIP_COMMIT_STRING. Skipping..."
     fi
 done
