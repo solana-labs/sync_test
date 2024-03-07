@@ -7,6 +7,11 @@
 #     Cherry pick sha to temp branch
 # Push upstream master
 
+
+# TODO a way to skip a commit (CI migration, etc)
+# TODO all referencs to "master" need to be dynamic
+
+
 git config --global user.email "will.hickey@anza.xyz"
 git config --global user.name "GHA: Update Upstream From Fork"
 git fetch --all

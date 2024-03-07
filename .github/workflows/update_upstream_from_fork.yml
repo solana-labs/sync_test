@@ -10,6 +10,10 @@ on:
 env:
   GH_TOKEN: ${{ secrets.SYNC_TEST_ADMIN }}
   GH_REPO: ${{ github.repository }}
+  BASE_REF: ${{ github.event.base_ref}}
+  UPSTREAM: https://github.com/solana-labs/sync_test.git
+
+https://stackoverflow.com/questions/71571528/iterate-on-github-event-commits-in-github-action-script
 
 jobs:
   update-upstream-from-fork:
@@ -19,7 +23,10 @@ jobs:
       - name: Echo ENV
 # TODO improve logging
         run: |
+          commits=${{join(github.event.commits.*.message, ', ') }}
+          echo $commits
           echo $GH_REPO
+          echo $BASE_REF
           echo "gh auth status"
           gh auth status
           echo "git config -l: "
@@ -35,19 +42,19 @@ jobs:
           # with a Personal Access Token that can access both repos
           token: ${{ secrets.SYNC_TEST_ADMIN }}
       - name: Add remote for upstream
-        run: git remote add upstream https://github.com/solana-labs/sync_test.git
+        run: git remote add upstream $UPSTREAM
         shell: bash
       - name: show remotes and branches
         run: |
           git remote --verbose
           git branch --all
         shell: bash
-      - name: Cherry pick from origin/master to upstream/master
+      - name: Cherry pick from origin to upstream
         run: |
           .github/workflows/cherry-pick-from-branch.sh
         shell: bash
 
+
+
 # TODO add a bunch of debugging prints about the state of commits so if cherry-pick fails we can figure it out.
 # TODO Minimize the PAT permissions
-# TODO a way to skip a commit (CI migration, etc)
-# TODO all referencs to "master" need to be dynamic
