@@ -11,15 +11,14 @@
 # TODO a way to skip a commit (CI migration, etc)
 # TODO all referencs to "master" need to be dynamic
 
-SRC=$1
-DEST=$2
-BRANCH=$1
+
+DEST_REMOTE=$2
+DEST_BRANCH=$1
 BEFORE_SHA=$4
 LAST_SHA=$5
 
-DEST="upstream"
-SRC="origin"
-BRANCH="master"
+DEST_REMOTE="upstream"
+DEST_BRANCH="master"
 BEFORE_SHA="4bca5fc"
 LAST_SHA="be1fb6b"
 
@@ -35,10 +34,11 @@ echo "-----------------------\ngit log --oneline origin/master"
 git log --oneline origin/master
 echo "-------------------------"
 git branch -D temp_branch
-git checkout -b temp_branch "remotes/$DEST/$BRANCH"
+git checkout -b temp_branch "remotes/$DEST_REMOTE/$DEST_BRANCH"
 
 for sha1 in $(git log --reverse --format=format:%H $BEFORE_SHA..$LAST_SHA); do
-    echo "------------------\nSHA1: $sha1"
+    echo "-------------------------------------"
+    echo "SHA1: $sha1"
     commit_message=$(git log --format=%B $sha1~..$sha1)
     echo "$commit_message"
     if ! [[ $commit_message =~ $SKIP_COMMIT_STRING ]] ; then
