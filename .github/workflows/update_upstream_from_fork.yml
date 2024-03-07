@@ -17,15 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo ENV
+# TODO improve logging
         run: |
           echo $GH_REPO
+          echo "gh auth status"
           gh auth status
           echo "git config -l: "
           git config -l
         shell: bash
       - uses: actions/checkout@v4
         with:
+          # By default checkout only gets 1 commit. We want to cherry-pick
+          # all the commits from the push, so fetch the entire history
           fetch-depth: 0
+          # By default checkout uses secrets.GITHUB_TOKEN. That token won't
+          # have any permissions in the upstream repo, so we need to override it
+          # with a Personal Access Token that can access both repos
           token: ${{ secrets.SYNC_TEST_ADMIN }}
       - name: Add remote for upstream
         run: git remote add upstream https://github.com/solana-labs/sync_test.git
@@ -37,18 +44,11 @@ jobs:
         shell: bash
       - name: Cherry pick from origin/master to upstream/master
         run: |
-          git config --global user.email "will.hickey@anza.xyz"
-          git config --global user.name "GHA: Update Upstream From Fork"
-          git fetch --all
-          echo "-------------------------"
-          echo "git log --oneline remotes/upstream/master:"
-          git log --oneline remotes/upstream/master
-          echo "-----------------------\ngit log --oneline origin/master"
-          git log --oneline origin/master
-          echo "-------------------------"
-          git checkout -b temp_branch remotes/upstream/master
-          git cherry-pick remotes/upstream/master..origin/master
-          git push upstream master
+          ./github/workflows/cherry-pick-from-branch.sh
         shell: bash
 
 # TODO add a bunch of debugging prints about the state of commits so if cherry-pick fails we can figure it out.
+# TODO Minimize the PAT permissions
+# TODO a way to skip a commit (CI migration, etc)
+# TODO all referencs to "master" need to be dynamic
+
