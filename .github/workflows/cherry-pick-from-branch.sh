@@ -22,12 +22,6 @@ echo "DEST_BRANCH: $DEST_BRANCH"
 echo "BEFORE_SHA: $BEFORE_SHA"
 echo "LAST_SHA: $LAST_SHA"
 
-
-DEST_REMOTE="upstream"
-DEST_BRANCH="master"
-BEFORE_SHA="4bca5fc"
-LAST_SHA="be1fb6b"
-
 SKIP_COMMIT_STRING="DO NOT SYNC"
 
 git config --global user.email "will.hickey@anza.xyz"
@@ -36,7 +30,8 @@ git fetch --all
 echo "-------------------------"
 echo "git log --oneline remotes/upstream/master:"
 git log --oneline remotes/upstream/master
-echo "-----------------------\ngit log --oneline origin/master"
+echo "-----------------------"
+echo "git log --oneline origin/master"
 git log --oneline origin/master
 echo "-------------------------"
 git branch -D temp_branch
