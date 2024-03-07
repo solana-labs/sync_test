@@ -18,7 +18,11 @@ BEFORE_SHA=$4
 LAST_SHA=$5
 
 DEST="upstream"
+SRC="origin"
 BRANCH="master"
+BEFORE_SHA="4bca5fc"
+LAST_SHA="35ae3c7"
+
 SKIP_COMMIT_STRING="DO NOT SYNC"
 
 git config --global user.email "will.hickey@anza.xyz"
@@ -33,15 +37,15 @@ echo "-------------------------"
 git branch -D temp_branch
 git checkout -b temp_branch "remotes/$DEST/$BRANCH"
 
-for sha1 in $(git log --reverse --format=format:%H remotes/upstream/$BRANCH..origin/$BRANCH); do
-    echo "SHA1: $sha1"
+for sha1 in $(git log --reverse --format=format:%H $BEFORE_SHA..$LAST_SHA); do
+    echo "------------------\nSHA1: $sha1"
     commit_message=$(git log --format=%B $sha1~..$sha1)
     echo "$commit_message"
     if ! [[ $commit_message =~ $SKIP_COMMIT_STRING ]] ; then
-        echo "$commit_message does not contain $SKIP_COMMIT_STRING. Cherry-picking..."
-        git cherry-pick $sha1
+        echo "Commit message does not contain $SKIP_COMMIT_STRING. Cherry-picking..."
+        git cherry-pick "$sha1"
     el
-        echo "$commit_message contains $SKIP_COMMIT_STRING. Skipping..."
+        echo "Commit message contains $SKIP_COMMIT_STRING. Skipping..."
     fi
 done
 # git cherry-pick remotes/upstream/master..origin/master
