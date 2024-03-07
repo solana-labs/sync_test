@@ -53,7 +53,14 @@ jobs:
         run: |
           .github/workflows/cherry-pick-from-branch.sh
         shell: bash
-
+      - name: run some GHA script
+        - uses: actions/github-script@v6
+          with:
+            script: |
+              const commits = ${{ toJSON(github.event.commits) }}
+              for (const commit of commits) {
+                console.log(commit);
+              }
 
 
 # TODO add a bunch of debugging prints about the state of commits so if cherry-pick fails we can figure it out.
