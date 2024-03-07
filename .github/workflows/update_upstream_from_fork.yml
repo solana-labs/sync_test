@@ -21,8 +21,6 @@ jobs:
       - name: Echo ENV
 # TODO improve logging
         run: |
-          commits=${{join(github.event.commits.*.message, ', ') }}
-          echo $commits
           echo $GH_REPO
           echo $BASE_REF
           echo "gh auth status"
