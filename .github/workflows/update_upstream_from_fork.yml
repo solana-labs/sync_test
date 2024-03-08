@@ -11,10 +11,11 @@ env:
   GH_TOKEN: ${{ secrets.SYNC_TEST_ADMIN }}
   GH_REPO: ${{ github.repository }}
   BASE_REF: ${{ github.event.base_ref}}   # TODO this isn't populated
-  REF: ${{ github.event.REF}}   # TODO this isn't populated
+  REF: ${{ github.event.REF}}
   BEFORE_SHA: ${{ github.event.before }}
   LAST_SHA: ${{ github.event.after}}
   UPSTREAM: https://github.com/solana-labs/sync_test.git
+  GITHUB_OBJ: ${{ toJSON(github) }}
 
 jobs:
   update-upstream-from-fork:
@@ -26,6 +27,7 @@ jobs:
       - name: Echo ENV
 # TODO improve logging
         run: |
+          echo "GITHUB_OJB: $GITHUB_OBJ"
           echo "GH_REPO: $GH_REPO"
           echo "BASE_REF: $BASE_REF"
           echo "REF: $REF"
@@ -61,5 +63,4 @@ jobs:
           .github/workflows/cherry-pick-from-branch.sh upstream master "$BEFORE_SHA" "$LAST_SHA"
         shell: bash
 # TODO master is hardcoded in script call above. 
-# TODO add a bunch of debugging prints about the state of commits so if cherry-pick fails we can figure it out.
 # TODO Minimize the PAT permissions
