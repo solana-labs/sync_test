@@ -24,15 +24,9 @@ jobs:
     name: "Update Upstream From Fork"
     runs-on: ubuntu-latest
     steps:
-      - name: Echo ENV
-# TODO improve logging
+      - name: Echo git status
+# TODO consolidate the status logging in the next few steps
         run: |
-          echo "GITHUB_OJB: $GITHUB_OBJ"
-          echo "GH_REPO: $GH_REPO"
-          echo "BASE_REF: $BASE_REF"
-          echo "REF: $REF"
-          echo "BEFORE_SHA: $BEFORE_SHA"
-          echo "LAST_SHA: $LAST_SHA"
           echo "---------------"
           echo "gh auth status"
           gh auth status
