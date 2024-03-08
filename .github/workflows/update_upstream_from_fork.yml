@@ -10,23 +10,34 @@ on:
 env:
   GH_TOKEN: ${{ secrets.SYNC_TEST_ADMIN }}
   GH_REPO: ${{ github.repository }}
-  BASE_REF: ${{ github.event.base_ref}}
+  BASE_REF: ${{ github.event.base_ref}}   # TODO this isn't populated
+  REF: ${{ github.event.REF}}   # TODO this isn't populated
+  BEFORE_SHA: ${{ github.event.before }}
+  LAST_SHA: ${{ github.event.after}}
   UPSTREAM: https://github.com/solana-labs/sync_test.git
 
 jobs:
   update-upstream-from-fork:
+    # TODO need to update this repo name to anza-xyz/agave
+    if: github.repository == 'willhickey/sync_test'
     name: "Update Upstream From Fork"
     runs-on: ubuntu-latest
     steps:
       - name: Echo ENV
 # TODO improve logging
         run: |
-          echo $GH_REPO
-          echo $BASE_REF
+          echo "GH_REPO: $GH_REPO"
+          echo "BASE_REF: $BASE_REF"
+          echo "REF: $REF"
+          echo "BEFORE_SHA: $BEFORE_SHA"
+          echo "LAST_SHA: $LAST_SHA"
+          echo "---------------"
           echo "gh auth status"
           gh auth status
+          echo "---------------"
           echo "git config -l: "
           git config -l
+          echo "---------------"
         shell: bash
       - uses: actions/checkout@v4
         with:
@@ -47,8 +58,8 @@ jobs:
         shell: bash
       - name: Cherry pick from origin to upstream
         run: |
-          .github/workflows/cherry-pick-from-branch.sh
+          .github/workflows/cherry-pick-from-branch.sh upstream master "$BEFORE_SHA" "$LAST_SHA"
         shell: bash
-
+# TODO master is hardcoded in script call above. 
 # TODO add a bunch of debugging prints about the state of commits so if cherry-pick fails we can figure it out.
 # TODO Minimize the PAT permissions
