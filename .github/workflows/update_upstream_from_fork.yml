@@ -10,7 +10,7 @@ on:
 env:
   GH_TOKEN: ${{ secrets.SYNC_TEST_ADMIN }}
   GH_REPO: ${{ github.repository }}
-  BASE_REF: ${{ github.event.base_ref}}   # TODO this isn't populated
+  BRANCH_REF: ${{ github.ref_name }}
   REF: ${{ github.event.REF}}
   BEFORE_SHA: ${{ github.event.before }}
   LAST_SHA: ${{ github.event.after}}
@@ -54,7 +54,7 @@ jobs:
         shell: bash
       - name: Cherry pick from origin to upstream
         run: |
-          .github/workflows/cherry-pick-from-branch.sh upstream master "$BEFORE_SHA" "$LAST_SHA"
+          .github/workflows/cherry-pick-from-branch.sh upstream "$BRANCH_REF" "$BEFORE_SHA" "$LAST_SHA"
         shell: bash
 # TODO master is hardcoded in script call above. 
 # TODO Minimize the PAT permissions
