@@ -43,4 +43,4 @@ for sha1 in $(git log --reverse --format=format:%H $BEFORE_SHA..$LAST_SHA); do
         echo "Commit message contains $SKIP_COMMIT_STRING. Skipping..."
     fi
 done
-git push "$DEST_REMOTE" "$DEST_BRANCH"
+# git push "$DEST_REMOTE" "$DEST_BRANCH"

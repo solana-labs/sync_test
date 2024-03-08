@@ -6,7 +6,7 @@ on:
       - master
       - v1.18
       - v1.17
-
+# Junk comment for v1.18
 env:
   GH_TOKEN: ${{ secrets.SYNC_TEST_ADMIN }}
   GH_REPO: ${{ github.repository }}
