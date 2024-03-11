@@ -5,6 +5,7 @@
 # In a repo
 # $DEST_REPO/$DEST_BRANCH is defined, readable, and writeable
 # $BEFORE_SHA..$LAST_SHA must define a sequence of commits
+# fetch all has just been run
 
 DEST_REMOTE=$1
 DEST_BRANCH=$2
@@ -21,7 +22,7 @@ SKIP_COMMIT_STRING="DO NOT SYNC"
 # TODO Maybe don't need these? I think the identity of the PAT is overriding them anyway
 # git config --global user.email "noreply@anza.xyz"
 # git config --global user.name "GHA: Update Upstream From Fork" #TODO better name
-git fetch --all
+# git fetch --all
 echo "-------------------------"
 echo "git log --oneline remotes/$DEST_REMOTE/$DEST_BRANCH:"
 git log --oneline "remotes/$DEST_REMOTE/$DEST_BRANCH"
