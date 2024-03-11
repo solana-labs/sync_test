@@ -1,3 +1,5 @@
+# TODO Minimize the PAT permissions
+
 name: Update Upstream From Fork
 
 on:
@@ -6,7 +8,7 @@ on:
       - master
       - v1.18
       - v1.17
-# Junk comment for v1.18
+
 env:
   GH_TOKEN: ${{ secrets.SYNC_TEST_ADMIN }}
   GH_REPO: ${{ github.repository }}
@@ -51,10 +53,11 @@ jobs:
         run: |
           git remote --verbose
           git branch --all
+          git log --oneline "origin/$BRANCH_REF"
+          git log --oneline "remotes/upstream/$BRANCH_REF"
         shell: bash
       - name: Cherry pick from origin to upstream
         run: |
           .github/workflows/cherry-pick-from-branch.sh upstream "$BRANCH_REF" "$BEFORE_SHA" "$LAST_SHA"
         shell: bash
-# TODO master is hardcoded in script call above. 
-# TODO Minimize the PAT permissions
+
