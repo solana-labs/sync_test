@@ -45,7 +45,7 @@ jobs:
           # By default checkout uses secrets.GITHUB_TOKEN. That token won't
           # have any permissions in the upstream repo, so we need to override it
           # with a Personal Access Token that can access both repos
-          token: ${{ secrets.SYNC_TEST_ADMIN }}
+          token: $GH_TOKEN
       - name: Add remote for upstream
         run: git remote add upstream $UPSTREAM
         shell: bash
