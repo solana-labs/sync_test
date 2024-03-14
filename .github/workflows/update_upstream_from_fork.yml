@@ -10,7 +10,7 @@ on:
       - v1.17
 
 env:
-  GH_TOKEN: ${{ secrets.SYNC_TEST_REPO_ONLY }}
+  GH_TOKEN: ${{ secrets.SYNC_TEST_ADMIN2 }}
   GH_REPO: ${{ github.repository }}
   BRANCH_REF: ${{ github.ref_name }}
   REF: ${{ github.event.REF}}
