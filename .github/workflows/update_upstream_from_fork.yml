@@ -1,4 +1,6 @@
 # TODO Minimize the PAT permissions
+# TODO make sure merge conflicts fail in an acceptable way
+# TODO on failure ping on slack?
 
 name: Update Upstream From Fork
 
@@ -26,7 +28,7 @@ jobs:
     name: "Update Upstream From Fork"
     runs-on: ubuntu-latest
     steps:
-      - name: Echo git status
+      - name: Print git auth status and config
 # TODO consolidate the status logging in the next few steps
         run: |
           echo "---------------"
@@ -49,13 +51,15 @@ jobs:
       - name: Add remote for upstream
         run: git remote add upstream $UPSTREAM
         shell: bash
-      - name: show remotes and branches
+      - name: git fetch
         run: |
           git fetch --all
+      - name: Print git remotes, branches, logs
+        run: |
           git remote --verbose
           git branch --all
-          git log --oneline "origin/$BRANCH_REF"
-          git log --oneline "remotes/upstream/$BRANCH_REF"
+          git log --oneline "origin/$BRANCH_REF" -20
+          git log --oneline "remotes/upstream/$BRANCH_REF" -20
         shell: bash
       - name: Cherry pick from origin to upstream
         run: |
