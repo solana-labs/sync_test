@@ -21,11 +21,11 @@ echo "DEST_BRANCH: $DEST_BRANCH"
 echo "BEFORE_SHA: $BEFORE_SHA"
 echo "LAST_SHA: $LAST_SHA"
 
-SKIP_COMMIT_STRING="[anza migration]"
+SKIP_COMMIT_STRING="\[anza migration\]"
 
 # TODO commenting these causes a silent failure. Make it fail loudly
 git config --global user.email "noreply@anza.xyz"
-git config --global user.name "GHA: Update Upstream From Fork" #TODO better name
+git config --global user.name "GHA: Update Upstream From Fork"
 git fetch --all
 echo "-------------------------"
 echo "git log --oneline remotes/$DEST_REMOTE/$DEST_BRANCH:"
