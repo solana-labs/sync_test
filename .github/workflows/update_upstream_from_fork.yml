@@ -1,4 +1,4 @@
-# TODO Minimize the PAT permissions
+# TODO Minimize the PAT permissions. Leave a comment about which are required.
 
 name: Update Upstream From Fork
 
@@ -27,7 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo git status
-# TODO consolidate the status logging in the next few steps
         run: |
           echo "---------------"
           echo "gh auth status"
@@ -54,11 +53,10 @@ jobs:
           git fetch --all
           git remote --verbose
           git branch --all
-          git log --oneline "origin/$BRANCH_REF"
-          git log --oneline "remotes/upstream/$BRANCH_REF"
+          git log --oneline "origin/$BRANCH_REF" -20
+          git log --oneline "remotes/upstream/$BRANCH_REF" -20
         shell: bash
       - name: Cherry pick from origin to upstream
         run: |
           .github/workflows/cherry-pick-from-branch.sh upstream "$BRANCH_REF" "$BEFORE_SHA" "$LAST_SHA"
         shell: bash
-
