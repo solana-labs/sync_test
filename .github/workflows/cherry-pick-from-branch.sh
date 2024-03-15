@@ -34,7 +34,6 @@ echo "-----------------------"
 echo "git log --oneline $BEFORE_SHA~..$LAST_SHA"
 git log --oneline "$BEFORE_SHA~..$LAST_SHA" -10
 echo "-------------------------"
-# git branch -D temp_branch
 git checkout -b temp_branch "remotes/$DEST_REMOTE/$DEST_BRANCH"
 
 for sha1 in $(git log --reverse --format=format:%H $BEFORE_SHA..$LAST_SHA); do
