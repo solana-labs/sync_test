@@ -9,7 +9,6 @@ set -euxo pipefail
 # In a repo
 # $DEST_REPO/$DEST_BRANCH is defined, readable, and writeable
 # $BEFORE_SHA..$LAST_SHA must define a sequence of commits
-# fetch all has just been run
 
 DEST_REMOTE=$1      # eg "upstream" (must already be defined and writeable in the repo)
 DEST_BRANCH=$2      # eg "master" - must exist in the repo
