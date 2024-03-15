@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 # This script is intended to be called by the Github Action update_upstream_from_fork.yaml
 # It is triggered on a push event and will cherry-pick the commits from the push
