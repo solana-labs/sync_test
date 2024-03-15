@@ -41,12 +41,12 @@ for sha1 in $(git log --reverse --format=format:%H $BEFORE_SHA..$LAST_SHA); do
     echo "-------------------------------------"
     echo "SHA1: $sha1"
     commit_message=$(git log --format=%B $sha1~..$sha1)
-    echo "$commit_message"
+    echo "Commit message: $commit_message"
     if ! [[ $commit_message =~ $SKIP_COMMIT_STRING ]] ; then
-        echo "Commit message does not contain $SKIP_COMMIT_STRING. Cherry-picking..."
+        echo "Commit message '$commit_message' does not contain $SKIP_COMMIT_STRING. Cherry-picking..."
         git cherry-pick "$sha1"
     else
-        echo "Commit message contains $SKIP_COMMIT_STRING. Skipping..."
+        echo "Commit message  '$commit_message' contains $SKIP_COMMIT_STRING. Skipping..."
     fi
 done
 git push "$DEST_REMOTE" "$DEST_BRANCH"
