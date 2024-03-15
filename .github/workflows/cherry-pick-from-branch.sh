@@ -2,18 +2,19 @@
 
 set -euxo pipefail
 
-# Why
-# What
+# This script is intended to be called by the Github Action update_upstream_from_fork.yaml
+# It is triggered on a push event and will cherry-pick the commits from the push
+# onto "DEST_REMOTE/$DEST_BRANCH
 # Assumptions:
 # In a repo
 # $DEST_REPO/$DEST_BRANCH is defined, readable, and writeable
 # $BEFORE_SHA..$LAST_SHA must define a sequence of commits
 # fetch all has just been run
 
-DEST_REMOTE=$1
-DEST_BRANCH=$2
-BEFORE_SHA=$3
-LAST_SHA=$4
+DEST_REMOTE=$1      # eg "upstream" (must already be defined and writeable in the repo)
+DEST_BRANCH=$2      # eg "master" - must exist in the repo
+BEFORE_SHA=$3       # the last commit before the ones to cherry-pick. $BEFORE_SHA is NOT cherry-picked.
+LAST_SHA=$4         # The last commit to cherry-pick.
 
 echo "DEST_REMOTE: $DEST_REMOTE"
 echo "DEST_BRANCH: $DEST_BRANCH"
