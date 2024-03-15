@@ -10,7 +10,7 @@ on:
       - v1.17
 
 env:
-  GH_TOKEN: ${{ secrets.SYNC_TEST_REPO_ONLY }}
+  GH_TOKEN: ${{ secrets.SYNC_TEST_ADMIN2 }}
   GH_REPO: ${{ github.repository }}
   BRANCH_REF: ${{ github.ref_name }}
   REF: ${{ github.event.REF}}
@@ -45,7 +45,7 @@ jobs:
           # By default checkout uses secrets.GITHUB_TOKEN. That token won't
           # have any permissions in the upstream repo, so we need to override it
           # with a Personal Access Token that can access both repos
-          token: ${{ secrets.SYNC_TEST_ADMIN2 }}
+          token: ${{ env.GH_TOKEN }}
       - name: Add remote for upstream
         run: git remote add upstream $UPSTREAM
         shell: bash
