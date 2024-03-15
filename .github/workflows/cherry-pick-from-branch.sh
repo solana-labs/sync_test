@@ -20,9 +20,9 @@ echo "LAST_SHA: $LAST_SHA"
 SKIP_COMMIT_STRING="DO NOT SYNC"
 
 # TODO Maybe don't need these? I think the identity of the PAT is overriding them anyway
-# git config --global user.email "noreply@anza.xyz"
-# git config --global user.name "GHA: Update Upstream From Fork" #TODO better name
-# git fetch --all
+git config --global user.email "noreply@anza.xyz"
+git config --global user.name "GHA: Update Upstream From Fork" #TODO better name
+git fetch --all
 echo "-------------------------"
 echo "git log --oneline remotes/$DEST_REMOTE/$DEST_BRANCH:"
 git log --oneline "remotes/$DEST_REMOTE/$DEST_BRANCH"
