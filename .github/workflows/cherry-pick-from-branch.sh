@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+set -euxo pipefail
+
 # Why
 # What
 # Assumptions:
@@ -19,17 +22,18 @@ echo "LAST_SHA: $LAST_SHA"
 
 SKIP_COMMIT_STRING="DO NOT SYNC"
 
+# TODO commenting these causes a silent failure. Make it fail loudly
 git config --global user.email "noreply@anza.xyz"
 git config --global user.name "GHA: Update Upstream From Fork" #TODO better name
 git fetch --all
 echo "-------------------------"
 echo "git log --oneline remotes/$DEST_REMOTE/$DEST_BRANCH:"
-git log --oneline "remotes/$DEST_REMOTE/$DEST_BRANCH"
+git log --oneline "remotes/$DEST_REMOTE/$DEST_BRANCH" -10
 echo "-----------------------"
 echo "git log --oneline $BEFORE_SHA~..$LAST_SHA"
-git log --oneline "$BEFORE_SHA~..$LAST_SHA"
+git log --oneline "$BEFORE_SHA~..$LAST_SHA" -10
 echo "-------------------------"
-git branch -D temp_branch
+# git branch -D temp_branch
 git checkout -b temp_branch "remotes/$DEST_REMOTE/$DEST_BRANCH"
 
 for sha1 in $(git log --reverse --format=format:%H $BEFORE_SHA..$LAST_SHA); do

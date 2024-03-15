@@ -53,8 +53,6 @@ jobs:
           git fetch --all
           git remote --verbose
           git branch --all
-          git log --oneline "origin/$BRANCH_REF" -20
-          git log --oneline "remotes/upstream/$BRANCH_REF" -20
         shell: bash
       - name: Cherry pick from origin to upstream
         run: |
