@@ -20,7 +20,7 @@ echo "DEST_BRANCH: $DEST_BRANCH"
 echo "BEFORE_SHA: $BEFORE_SHA"
 echo "LAST_SHA: $LAST_SHA"
 
-SKIP_COMMIT_STRING="DO NOT SYNC"
+SKIP_COMMIT_STRING="[anza migration]"
 
 # TODO commenting these causes a silent failure. Make it fail loudly
 git config --global user.email "noreply@anza.xyz"
