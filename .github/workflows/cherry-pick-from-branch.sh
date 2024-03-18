@@ -10,6 +10,8 @@ set -euo pipefail
 # $DEST_REPO/$DEST_BRANCH is defined, readable, and writeable
 # $BEFORE_SHA..$LAST_SHA must define a sequence of commits
 
+# TODO git grep agave -- * after cherry-pick. Fail if we find new agave references?
+
 DEST_REMOTE=$1      # eg "upstream" (must already be defined and writeable in the repo)
 DEST_BRANCH=$2      # eg "master" - must exist in the repo
 BEFORE_SHA=$3       # the last commit before the ones to cherry-pick. $BEFORE_SHA is NOT cherry-picked.
@@ -49,4 +51,4 @@ for sha1 in $(git log --reverse --format=format:%H $BEFORE_SHA..$LAST_SHA); do
 done
 git status
 git log -10
-git push "$DEST_REMOTE" "$DEST_BRANCH"
+git push "$DEST_REMOTE" "$DEST_BRANCH"      # TODO This seems to be pushing the local copy of DEST_BRANCH rather than the temp_branch
