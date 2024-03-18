@@ -56,5 +56,5 @@ jobs:
         shell: bash
       - name: Cherry pick from origin to upstream
         run: |
-          .github/workflows/cherry-pick-from-branch.sh upstream "$BRANCH_REF" "$BEFORE_SHA" "$LAST_SHA"
+          .github/scripts/cherry-pick-from-branch.sh upstream "$BRANCH_REF" "$BEFORE_SHA" "$LAST_SHA"
         shell: bash
